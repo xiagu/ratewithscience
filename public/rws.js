@@ -165,7 +165,7 @@ document.getElementById("close_error").addEventListener("click", function() {
 /* https://gist.github.com/varemenos/2531765 */
 function getUrlVar(key){
     var result = new RegExp(key + "=([^&]*)", "i").exec(window.location.hash);
-    return result && unescape(result[1]) || "";
+    return result && decodeURI(result[1].replace(/\+/g, ' ')) || "";
 }
 
 (function() {
@@ -178,6 +178,9 @@ function getUrlVar(key){
 
     /* if both are there then click the Go button */
     if (start !== "" && stop !== "") {
-        document.getElementById("go").click();
+        /* wait a second to give a chance to peek at the endpoints */
+        setTimeout(function() {
+            document.getElementById("go").click();
+        }, 1000)
     }
 })();
